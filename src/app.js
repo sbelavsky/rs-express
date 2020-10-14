@@ -5,15 +5,20 @@ const YAML = require('yamljs');
 const userRouter = require('./resources/users/user.router');
 const boardRouter = require('./resources/boards/board.router');
 const { accessLogMiddleware } = require('./middleware/access.log.middleware');
+const {
+  errorHandlerMiddleware
+} = require('./middleware/error.handler.middleware');
 
 const app = express();
 const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 
 app.use(express.json());
+
+// logging
 app.use(accessLogMiddleware);
 
+// routes
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-
 app.use('/', (req, res, next) => {
   if (req.originalUrl === '/') {
     res.send('Service is running!');
@@ -24,6 +29,9 @@ app.use('/', (req, res, next) => {
 
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
+
+// errors handling
+app.use(errorHandlerMiddleware);
 
 process.on('uncaughtException', err => {
   console.error(`Caught exception: ${err}`);
