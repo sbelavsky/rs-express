@@ -25,4 +25,13 @@ app.use('/', (req, res, next) => {
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 
+process.on('uncaughtException', err => {
+  console.error(`Caught exception: ${err}`);
+  throw err;
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.warn('Unhandled Rejection at:', promise, 'reason:', reason);
+});
+
 module.exports = app;
