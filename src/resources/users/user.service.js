@@ -1,4 +1,4 @@
-const usersRepo = require('./user.memory.repository');
+const usersRepo = require('./user.repository');
 const taskService = require('../tasks/task.service');
 
 const getAll = async () => usersRepo.getAll();
@@ -8,9 +8,7 @@ const create = async user => usersRepo.create(user);
 const getById = async id => usersRepo.getByID(id);
 
 const update = async (id, options) => {
-  const existingUser = await usersRepo.getByID(id);
-  const newUser = Object.assign(existingUser, options);
-  return usersRepo.update(newUser);
+  return usersRepo.update(id, options);
 };
 
 const remove = async id => {
