@@ -1,12 +1,11 @@
 const MongoClient = require('mongodb').MongoClient;
-
-// Replace the uri string with your MongoDB deployment's connection string.
-const uri =
-  'mongodb+srv://admin:admin@cluster0.57rsz.mongodb.net/rest?w=majority';
+const { MONGO_CONNECTION_STRING } = require('./config');
 
 let db;
 async function init() {
-  const client = await MongoClient.connect(uri, { useNewUrlParser: true });
+  const client = await MongoClient.connect(MONGO_CONNECTION_STRING, {
+    useNewUrlParser: true
+  });
   db = client.db('rest');
 }
 
