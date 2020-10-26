@@ -3,7 +3,7 @@ const { getDB } = require('../../common/db');
 const users = () => getDB().collection('users');
 
 const getAll = async () => {
-  return await users()
+  return users()
     .find({})
     .toArray();
 };
@@ -13,11 +13,11 @@ const create = async user => {
 };
 
 const get = async id => {
-  return await users().findOne({ id });
+  return users().findOne({ id });
 };
 
 const update = async (id, options) => {
-  return await users().findOneAndUpdate({ id }, { $set: options });
+  return users().findOneAndUpdate({ id }, { $set: options });
 };
 
 const remove = async id => {

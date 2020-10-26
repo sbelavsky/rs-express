@@ -15,7 +15,7 @@ const get = async id => {
 const update = async user => {
   const index = DB.users.findIndex(u => u.id === user.id);
   DB.users[index] = user;
-  return await get(user.id);
+  return get(user.id);
 };
 
 const remove = async id => {

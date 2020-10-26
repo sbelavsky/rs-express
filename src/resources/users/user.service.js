@@ -13,10 +13,10 @@ const update = async (id, options) => {
 
 const remove = async id => {
   const tasks = await taskService.getByUserId(id);
-  if (tasks) {
-    tasks.forEach(t => taskService.unassign(t.id));
+  for (const task of tasks) {
+    await taskService.unassign(task.id);
   }
-  usersRepo.remove(id);
+  await usersRepo.remove(id);
 };
 
 module.exports = { getAll, create, getById, update, remove };

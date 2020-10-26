@@ -15,7 +15,7 @@ const get = async id => {
 const update = async board => {
   const index = DB.boards.findIndex(b => b.id === board.id);
   DB.boards[index] = board;
-  return await get(board.id);
+  return get(board.id);
 };
 
 const remove = async id => {

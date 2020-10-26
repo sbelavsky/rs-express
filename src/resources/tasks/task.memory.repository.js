@@ -23,7 +23,7 @@ const getByUserId = async userId => {
 const update = async task => {
   const index = DB.tasks.findIndex(t => t.id === task.id);
   DB.tasks[index] = task;
-  return await get(task.id);
+  return get(task.id);
 };
 
 const remove = async id => {
