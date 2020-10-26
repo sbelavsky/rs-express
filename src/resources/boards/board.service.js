@@ -1,5 +1,5 @@
 const { NotFoundError } = require('../../common/errors');
-const boardRepository = require('./board.memory.repository');
+const boardRepository = require('./board.repository');
 const taskService = require('../tasks/task.service');
 
 const getAll = async () => boardRepository.getAll();
@@ -15,20 +15,18 @@ const get = async id => {
 };
 
 const update = async (id, options) => {
-  const existing = await boardRepository.get(id);
-  if (!existing) {
-    throw new NotFoundError();
-  }
-  const newBoard = Object.assign(existing, options);
-  return await boardRepository.update(newBoard);
+  /* eslint-disable no-unused-vars*/
+  const { _id, ...rest } = options;
+  return boardRepository.update(id, rest);
 };
 
 const remove = async id => {
   const boardTasks = await taskService.getByBoardId(id);
   if (boardTasks) {
-    boardTasks.map(t => t.id).forEach(ID => taskService.remove(ID));
+    const promises = boardTasks.map(t => taskService.remove(t.id));
+    await Promise.all(promises);
   }
-  boardRepository.remove(id);
+  await boardRepository.remove(id);
 };
 
 module.exports = { getAll, create, get, update, remove };
