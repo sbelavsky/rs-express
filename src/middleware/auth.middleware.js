@@ -3,9 +3,6 @@ const { JWT_SECRET_KEY } = require('../common/config');
 
 module.exports = {
   authMiddleware: (req, res, next) => {
-    if (req.path === '/login') {
-      return next();
-    }
     const authHeader = req.headers.authorization;
     if (!authHeader) {
       return res.status(401).json({ message: 'No auth header provided' });

@@ -19,8 +19,6 @@ app.use(express.json());
 // logging
 app.use(accessLogMiddleware);
 
-app.use(authMiddleware);
-
 // routes
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 app.use('/', (req, res, next) => {
@@ -30,8 +28,9 @@ app.use('/', (req, res, next) => {
   }
   next();
 });
-
 app.use('/', authRouter);
+
+app.use(authMiddleware);
 app.use('/users', userRouter);
 app.use('/boards', boardRouter);
 

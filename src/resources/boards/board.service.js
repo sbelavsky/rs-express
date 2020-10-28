@@ -26,7 +26,7 @@ const remove = async id => {
     const promises = boardTasks.map(t => taskService.remove(t.id));
     await Promise.all(promises);
   }
-  await boardRepository.remove(id);
+  return boardRepository.remove(id);
 };
 
 module.exports = { getAll, create, get, update, remove };

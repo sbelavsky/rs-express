@@ -32,7 +32,7 @@ const update = async (id, options) => {
 };
 
 const remove = async id => {
-  await tasks().deleteOne({ id });
+  return tasks().deleteOne({ id });
 };
 
 module.exports = {

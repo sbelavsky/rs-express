@@ -21,7 +21,7 @@ const update = async (id, options) => {
 };
 
 const remove = async id => {
-  await boards().deleteOne({ id });
+  return boards().deleteOne({ id });
 };
 
 module.exports = { getAll, create, get, update, remove };
