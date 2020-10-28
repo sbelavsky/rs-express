@@ -24,4 +24,15 @@ const remove = async id => {
   await users().deleteOne({ id });
 };
 
-module.exports = { getAll, create, getByID: get, update, remove };
+const findByLogin = async login => {
+  return users().findOne({ login });
+};
+
+module.exports = {
+  getAll,
+  create,
+  getByID: get,
+  update,
+  remove,
+  findByLogin
+};

@@ -19,4 +19,15 @@ const remove = async id => {
   await usersRepo.remove(id);
 };
 
-module.exports = { getAll, create, getById, update, remove };
+const findByLogin = async login => {
+  return usersRepo.findByLogin(login);
+};
+
+module.exports = {
+  getAll,
+  create,
+  getById,
+  update,
+  remove,
+  findByLogin
+};
