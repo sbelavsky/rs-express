@@ -7,6 +7,7 @@ async function init() {
     useNewUrlParser: true
   });
   db = client.db('rest');
+  return db;
 }
 
 function getDB() {

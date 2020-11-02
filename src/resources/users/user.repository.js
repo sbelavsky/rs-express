@@ -9,7 +9,7 @@ const getAll = async () => {
 };
 
 const create = async user => {
-  await users().insertOne(user);
+  return users().insertOne(user);
 };
 
 const get = async id => {
@@ -21,7 +21,18 @@ const update = async (id, options) => {
 };
 
 const remove = async id => {
-  await users().deleteOne({ id });
+  return users().deleteOne({ id });
 };
 
-module.exports = { getAll, create, getByID: get, update, remove };
+const findByLogin = async login => {
+  return users().findOne({ login });
+};
+
+module.exports = {
+  getAll,
+  create,
+  getByID: get,
+  update,
+  remove,
+  findByLogin
+};

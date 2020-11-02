@@ -13,10 +13,20 @@ const update = async (id, options) => {
 
 const remove = async id => {
   const tasks = await taskService.getByUserId(id);
-  for (const task of tasks) {
-    await taskService.unassign(task.id);
-  }
-  await usersRepo.remove(id);
+  const unassigningTasks = tasks.map(t => taskService.unassign(t.id));
+  await Promise.all(unassigningTasks);
+  return usersRepo.remove(id);
 };
 
-module.exports = { getAll, create, getById, update, remove };
+const findByLogin = async login => {
+  return usersRepo.findByLogin(login);
+};
+
+module.exports = {
+  getAll,
+  create,
+  getById,
+  update,
+  remove,
+  findByLogin
+};
